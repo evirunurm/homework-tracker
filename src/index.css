@@ -13,10 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --evaluativa-color: red;
-  --aprendizaje-color: blue;
-  --valoracion-color: yellow;
+  --evaluativa-color: #ff4f4f;
+  --aprendizaje-color: #309bf3;
+  --valoracion-color: #bebe00;
   --deadline-color: black;
+  --finished-day-color: rgba(93, 206, 84, 0.54);
 }
 
 .bold {

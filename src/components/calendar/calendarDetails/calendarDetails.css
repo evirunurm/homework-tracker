@@ -53,3 +53,7 @@
 .event-items-types div.aprendizaje {
     background-color: var(--aprendizaje-color);
 }
+
+.finishedDay {
+    background-color: var(--finished-day-color) !important;
+}

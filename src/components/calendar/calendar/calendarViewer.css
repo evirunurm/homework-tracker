@@ -52,20 +52,20 @@
 
 .aprendizaje .div-aprendizaje {
     position: relative !important;
-    background-color: blue;
+    background-color: var(--aprendizaje-color);
 }
 
 .evaluativa .div-evaluativa{
     position: relative !important;
-    background-color: red;
+    background-color: var(--evaluativa-color);
 }
 
 .valoracion .div-valoracion{
     position: relative !important;
-    background-color: yellow;
+    background-color: var(--valoracion-color);
 }
 
 .deadline .div-deadline{
     position: relative !important;
-    background-color: black;
+    background-color: var(--deadline-color);
 }

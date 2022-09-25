@@ -1,8 +1,10 @@
 import './calendarViewer.css';
 import { Event } from "../../../types/Event";
 import { IDENTIFIERS_BY_TYPES } from "../../../utils/moduleIdentifiers";
+import {useState} from "react";
 
 export default function CalendarViewer({monthsDuration, calendar, showDayDetails}: any) {
+	const [doneEvents, setDoneEvents]: [string[] | null, any] = useState(JSON.parse(localStorage.getItem("own-events") ?? "[]"));
 	const dayWithEvents = {
 		backgroundColor: "rgba(0, 0, 0, 0.07)",
 		borderRadius: "50%"
@@ -36,15 +38,26 @@ export default function CalendarViewer({monthsDuration, calendar, showDayDetails
 			let currDate: Date = new Date(firstMonthDate.toISOString());
 			currDate.setDate(currDate.getDate() + i - 1);
 
+			console.log(doneEvents)
 			const currEvents: Event[] | undefined = getEvents(currDate);
+			// @ts-ignore
+			const finishedDay = currEvents?.length > 0
+				// @ts-ignore
+				? currEvents?.every((event: Event) => {
+					// @ts-ignore
+					return doneEvents?.filter((uid: string) => {
+						return uid === event.uid.value;
+					}).length > 0;
+				})
+				: false;
 
 			generatedDays.push(
 				<li key={i}
 					style={Object.assign(
 						i === 1 ? firstDayStyle : {},
-						currEvents?.length ? dayWithEvents : {}
+						currEvents?.length ? dayWithEvents : {},
 					)}
-					className={`day ${getTypeClasses(currEvents)}`}
+					className={`day ${getTypeClasses(currEvents)} ${finishedDay ? "finishedDay" : ""}`}
 					onClick={dateClick}
 					data-date={new Date(firstMonthDate.getFullYear(), firstMonthDate.getMonth(), i).toISOString()}
 

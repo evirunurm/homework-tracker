@@ -5,19 +5,19 @@ nav {
 
 
 .aprendizaje {
-    background-color: blue;
+    background-color: var(--aprendizaje-color);
 }
 
 .evaluativa{
-    background-color: red;
+    background-color: var(--evaluativa-color);
 }
 
 .valoracion{
-    background-color: yellow;
+    background-color: var(--valoracion-color);
 }
 
 .deadline{
-    background-color: black;
+    background-color: var(--deadline-color);
 }
 
 .types-items {
