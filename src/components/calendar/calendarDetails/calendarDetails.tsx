@@ -7,11 +7,12 @@ import {Calendar} from "../../../types/Calendar";
 
 export default function CalendarDetails({events, day, isVisible} : any) {
 
-	const [doneEvents, setDoneEvents]: [string[] | null, any] = useState(JSON.parse(localStorage.getItem("own-events") ?? ""));
+	const [doneEvents, setDoneEvents]: [string[] | null, any] = useState(JSON.parse(localStorage.getItem("own-events") ?? "{}"));
 
 	function isDone(uid: string) {
 		return doneEvents?.includes(uid);
 	}
+
 
 	function updateState(event: any) {
 		let clone = doneEvents?.slice();
