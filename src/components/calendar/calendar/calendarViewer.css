@@ -1,0 +1,61 @@
+.calendar {
+    background: grey;
+}
+
+.month-days-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    list-style: none;
+    gap: 0.5rem;
+}
+
+.day {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: black;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.firstDay {
+    grid-column-start: 2;
+}
+
+/* EVENTS */
+
+.types {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 2px;
+    pointer-events: none;
+}
+.identifier {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    pointer-events: none;
+}
+
+.aprendizaje .div-aprendizaje {
+    position: relative !important;
+    background-color: blue;
+}
+
+.evaluativa .div-evaluativa{
+    position: relative !important;
+    background-color: red;
+}
+
+.valoracion .div-valoracion{
+    position: relative !important;
+    background-color: yellow;
+}
+
+.deadline .div-deadline{
+    position: relative !important;
+    background-color: black;
+}
