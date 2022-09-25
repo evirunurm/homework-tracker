@@ -1,25 +1,19 @@
 import './calendarViewer.css';
-import {Event} from "../../../types/Event";
+import { Event } from "../../../types/Event";
+import { IDENTIFIERS_BY_TYPES } from "../../../utils/moduleIdentifiers";
 
-export default function CalendarViewer({calendar, showDayDetails}: any) {
-	const dayWithEvents = {backgroundColor: "darkgrey"};
-	const IDENTIFIERS_BY_TYPES = {
-		// Aprendizaje
-		0: "aprendizaje",
-		// Evaluativa
-		1: "evaluativa",
-		// Encuesta de valoración
-		2: "valoracion",
-		// Deadline
-		3: "deadline"
-	}
+export default function CalendarViewer({monthsDuration, calendar, showDayDetails}: any) {
+	const dayWithEvents = {
+		backgroundColor: "rgba(0, 0, 0, 0.07)",
+		borderRadius: "50%"
+	};
 
-	function getCalendar(startDate: Date, monthDuration: number): any[] {
+	function getCalendar(startDate: Date, monthsDuration: number): any[] {
 		const startMonth: number = startDate.getMonth();
 		const startYear: number = startDate.getFullYear();
 
 		let generatedCalendar = [];
-		for (let i = 0; i < monthDuration; i++) {
+		for (let i = 0; i < monthsDuration; i++) {
 			const firstMonthDay = new Date(startYear, startMonth + i, 1);
 			const monthName = firstMonthDay.toLocaleString("en-US", {month: "long"});
 			const monthDuration = new Date(firstMonthDay.getFullYear(), firstMonthDay.getMonth() + 1, 0).getDate();
@@ -108,9 +102,9 @@ export default function CalendarViewer({calendar, showDayDetails}: any) {
 
 			<div className={"months-container"}>
 				{
-					getCalendar(new Date(2022, 8, 1), 9).map((month: any, index: number) => {
+					getCalendar(new Date(2022, 8, 1), monthsDuration).map((month: any, index: number) => {
 						return <div className={"month"} key={index}>
-							<p>{month.monthName}</p>
+							<p className={"month-name"}>{month.monthName} {month.firstMonthDay.getFullYear()}</p>
 							<ul className={"month-days-container"}>
 								{generateMonth(month.monthDuration, month.firstMonthDay)}
 							</ul>

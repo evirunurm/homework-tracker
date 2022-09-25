@@ -5,17 +5,15 @@ import calendarParser from 'cal-parser';
 import CalendarViewer from './calendar/calendarViewer';
 import CalendarDetails from "./calendarDetails/calendarDetails";
 
+import {TYPES_OF_WORKS} from "../../utils/moduleIdentifiers";
+
+import "./calendarGenerator.css"
+
 export default function CalendarGenerator() {
 	const [eventsToDetail, setEventsToDetail]: [Event[], any] = useState([]);
 	const [dayToDetail, setDayToDetail]: [Date, any]  = useState(new Date());
 	const [isDetailsOpen, setIsDetailsOpen]: [boolean, any] = useState(false);
-
-	const TYPES_OF_WORKS = {
-		0: "aprendizaje",
-		1: "evaluaci",
-		2: "valoraci",
-		3: "completado"
-	}
+	const [monthsDuration, setMonthsDuration]: [number, any] = useState(9);
 
 	let [calendarView, setCalendarView]: [Calendar | undefined, any] = useState({
 		calendarData: {
@@ -29,9 +27,15 @@ export default function CalendarGenerator() {
 	});
 
 	function showDayDetails(events: Event[], day: Date) {
-		console.log(events)
-		setEventsToDetail(events)
-		setIsDetailsOpen(true);
+		if (events.length > 0) {
+			setDayToDetail(day)
+			setEventsToDetail(events)
+			setIsDetailsOpen(true);
+		}
+	}
+
+	function handleBackgroundClick() {
+		setIsDetailsOpen(false);
 	}
 
 	async function readFile(fileInput: HTMLInputElement) {
@@ -51,7 +55,22 @@ export default function CalendarGenerator() {
 			})
 			e.types = types;
 		})
-		setCalendarView(parsed)
+		setCalendarView(parsed);
+
+		// Update calendar in LocalStorage.
+		localStorage.setItem("calendar-events", JSON.stringify(parsed.events));
+
+		// Personal data about events
+		if (localStorage.getItem("own-events") === undefined || localStorage.getItem("own-events") === null) {
+			localStorage.setItem("own-events", JSON.stringify([]));
+		}
+	}
+
+	function handleMonthsDurationChange(event: any) {
+		console.log(event)
+		if (event.key === "Enter") {
+			setMonthsDuration(event.target.value)
+		}
 	}
 
 	return <>
@@ -60,8 +79,15 @@ export default function CalendarGenerator() {
 		{
 			await readFile(e.target)
 		}}/>
-		<CalendarViewer calendar={calendarView} showDayDetails={showDayDetails} />
+		<input type="text" onKeyDown={handleMonthsDurationChange}/>
+		<CalendarViewer monthsDuration={monthsDuration} calendar={calendarView} showDayDetails={showDayDetails} />
+
+		<div
+			style={isDetailsOpen ? {display: "block"} : {display: "none"}}
+			className={"background"}
+			onClick={handleBackgroundClick} />
 		<CalendarDetails isVisible={isDetailsOpen} events={eventsToDetail} day={dayToDetail} />
+
 	</>
 
 }

@@ -1,7 +1,8 @@
 .calendar-details-container {
     position: fixed;
-    padding: 1rem;
-    background-color: red;
+    padding: 2rem 1rem;
+    background-color: white;
+    border-radius: 8px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -11,5 +12,44 @@
    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1rem
+    gap: 1rem;
+}
+
+.date {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.event-item {
+    display: flex;
+    gap: 0.75rem
+}
+
+.event-items-types {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.type {
+    border-radius: 50%;
+    height: 0.5rem;
+    width: 0.5rem;
+}
+
+.event-items-types div.evaluativa {
+    background-color: var(--evaluativa-color);
+}
+
+.event-items-types div.valoracion {
+    background-color: var(--valoracion-color);
+}
+
+.event-items-types div.deadline {
+    background-color: var(--deadline-color);
+}
+
+.event-items-types div.aprendizaje {
+    background-color: var(--aprendizaje-color);
 }

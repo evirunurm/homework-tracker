@@ -1,0 +1,32 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.aprendizaje {
+    background-color: blue;
+}
+
+.evaluativa{
+    background-color: red;
+}
+
+.valoracion{
+    background-color: yellow;
+}
+
+.deadline{
+    background-color: black;
+}
+
+.types-items {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+}
