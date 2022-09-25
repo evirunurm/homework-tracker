@@ -3,35 +3,32 @@ import "./calendarDetails.css";
 import {Event} from "../../../types/Event";
 import {WEEKDAYS} from "../../../utils/weekdays";
 import {IDENTIFIERS_BY_TYPES} from "../../../utils/moduleIdentifiers";
-import {Calendar} from "../../../types/Calendar";
 
 export default function CalendarDetails({events, day, isVisible} : any) {
-
-	const [doneEvents, setDoneEvents]: [string[] | null, any] = useState(JSON.parse(localStorage.getItem("own-events") ?? "{}"));
+	const [doneEvents, setDoneEvents]: [string[] | null, any] = useState(JSON.parse(localStorage.getItem("own-events") ?? "[]"));
 
 	function isDone(uid: string) {
 		return doneEvents?.includes(uid);
 	}
 
-
 	function updateState(event: any) {
-		let clone = doneEvents?.slice();
-
-		console.log(event.target.checked)
-		if (!event.target.checked) {
-			setDoneEvents(
-				doneEvents?.filter(uid => uid !== event.target.id)
-			)
+		let toSave: string[] | null = doneEvents;
+		if (toSave?.includes(event.target.id)) {
+			toSave = toSave?.filter(uid => uid !== event.target.id);
+			setDoneEvents(toSave);
 		} else {
-			setDoneEvents([
-				// @ts-ignore
-				...doneEvents,
-				event.target.id
-			]);
+			// @ts-ignore
+			toSave = [...toSave, event.target.id];
+			// Correct syntax
+			// setDoneEvents(
+			// 	(previous: any) => ([
+			// 		...previous,
+			// 		event.target.id
+			// 	])
+			// );
+			setDoneEvents(toSave);
 		}
-
-		console.log(doneEvents)
-		localStorage.setItem("own-events", JSON.stringify(doneEvents));
+		localStorage.setItem("own-events", JSON.stringify(toSave));
 	}
 
 	return <div className={"calendar-details-container"}
@@ -42,7 +39,7 @@ export default function CalendarDetails({events, day, isVisible} : any) {
 			{
 			events.map((event: Event, index: number) => {
 				return <li className={"event-item"} key={index}>
-					<input onChange={updateState} id={event.uid.value} type="checkbox"/>
+					<input checked={isDone(event.uid.value)} onChange={updateState} id={event.uid.value} type="checkbox"/>
 					<div className={"event-items-types"}>
 						{event.types.map((type, index) => {
 							// @ts-ignore
