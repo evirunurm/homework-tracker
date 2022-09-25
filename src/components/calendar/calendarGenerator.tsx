@@ -14,9 +14,9 @@ export default function CalendarGenerator() {
 	const [dayToDetail, setDayToDetail]: [Date, any]  = useState(new Date());
 	const [isDetailsOpen, setIsDetailsOpen]: [boolean, any] = useState(false);
 	const [monthsDuration, setMonthsDuration]: [number, any] = useState(9);
+	const [loaded, setLoaded]: [string | undefined, any] = useState(undefined);
 
 	let savedCalendarRaw = localStorage.getItem("calendar-events" );
-
 	let calendar =
 		getTypedCalendar(calendarParser.parseString(savedCalendarRaw ?? ""))
 		// Template empty calendar
@@ -53,19 +53,16 @@ export default function CalendarGenerator() {
 		const fileTextStream = await file.text();
 		let parsed: Calendar = calendarParser.parseString(fileTextStream);
 		let typedCalendar = getTypedCalendar(parsed);
-
 		setCalendarView(typedCalendar ?? parsed);
+		setLoaded(`File: ${fileInput.files[0].name} loaded`)
 		// Update calendar in LocalStorage.
 		localStorage.setItem("calendar-events", fileTextStream);
-
-		console.log(localStorage.getItem("calendar-events" ?? "{}"))
 
 		// Personal data about events
 		if (localStorage.getItem("own-events") === undefined || localStorage.getItem("own-events") === null) {
 			localStorage.setItem("own-events", JSON.stringify([]));
 		}
 	}
-
 
 	function getTypedCalendar(calendarToAddTypes: Calendar | null): Calendar | null {
 
@@ -86,19 +83,26 @@ export default function CalendarGenerator() {
 	}
 
 	function handleMonthsDurationChange(event: any) {
-		console.log(event)
+		if (event.target.value > 30) {
+
+			return;
+		}
 		if (event.key === "Enter") {
 			setMonthsDuration(event.target.value)
 		}
 	}
 
 	return <>
-		<h3>Calendar</h3>
-		<input type="file" onChange={ async(e) =>
+		<label className={"select-image-label"} htmlFor="fileInput">{loaded ?? "Load a .ics file"}</label>
+		<input  style={{visibility: "hidden"}} id={"fileInput"} type="file" onChange={ async(e) =>
 		{
 			await readFile(e.target)
 		}}/>
-		<input type="text" onKeyDown={handleMonthsDurationChange}/>
+		<div className={"months-duration-container"}>
+			<label htmlFor="monthsDuration">Months to visualize</label>
+			<input id={"monthsDuration"} type="number" onKeyDown={handleMonthsDurationChange} min={0} max={30}/>
+		</div>
+
 		<CalendarViewer monthsDuration={monthsDuration} calendar={calendarView} showDayDetails={showDayDetails} />
 
 		<div

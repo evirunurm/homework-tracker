@@ -38,7 +38,6 @@ export default function CalendarViewer({monthsDuration, calendar, showDayDetails
 			let currDate: Date = new Date(firstMonthDate.toISOString());
 			currDate.setDate(currDate.getDate() + i - 1);
 
-			console.log(doneEvents)
 			const currEvents: Event[] | undefined = getEvents(currDate);
 			// @ts-ignore
 			const finishedDay = currEvents?.length > 0

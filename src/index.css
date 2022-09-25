@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
 :root {
@@ -15,7 +18,7 @@
 
   --evaluativa-color: #ff4f4f;
   --aprendizaje-color: #309bf3;
-  --valoracion-color: #bebe00;
+  --valoracion-color: #ffc82e;
   --deadline-color: black;
   --finished-day-color: rgba(93, 206, 84, 0.54);
 }
@@ -23,3 +26,4 @@
 .bold {
   font-weight: bold;
 }
+

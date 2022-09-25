@@ -6,6 +6,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
 }
 
 .calendar-details-container ul {
@@ -56,4 +57,11 @@
 
 .finishedDay {
     background-color: var(--finished-day-color) !important;
+}
+
+@media (max-width: 550px) {
+    .calendar-details-container {
+        width: 100%;
+        max-width: 90%;
+    }
 }

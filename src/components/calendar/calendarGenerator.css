@@ -6,3 +6,28 @@
     left: 0;
     background-color: rgba(0, 0, 0, 0.25);
 }
+
+.select-image-label {
+    background-color: white;
+    box-shadow: 0 0 0 3px black;
+    padding: 1rem;
+    display: block;
+    width: fit-content;
+    cursor: pointer;
+    transition: 0.15s ease-in;
+}
+
+.select-image-label:hover {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 5px var(--finished-day-color);
+}
+
+.months-duration-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.months-duration-container input {
+    padding: 0.5rem 0.75rem;
+}

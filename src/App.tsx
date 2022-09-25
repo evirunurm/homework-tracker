@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import React from "react";
 
 import Nav from "./components/nav/nav";
-const Home = React.lazy(() => import("./views/Home"));
+const Home = React.lazy(() => import("./views/Home/Home"));
 const About = React.lazy(() => import("./views/About"));
 
 function App() {
@@ -12,16 +12,16 @@ function App() {
 			<Nav />
 			<Router>
 		  <div>
-			<ul>
-			  <li>
-				<Link to="/">Home</Link>
-			  </li>
-			  <li>
-				<Link to="/about">About</Link>
-			  </li>
-			</ul>
+			{/*<ul>*/}
+			{/*  <li>*/}
+			{/*	<Link to="/">Home</Link>*/}
+			{/*  </li>*/}
+			{/*  <li>*/}
+			{/*	<Link to="/about">About</Link>*/}
+			{/*  </li>*/}
+			{/*</ul>*/}
 
-			<hr />
+			{/*<hr />*/}
 
 			{/*  Displays a loading component with "fallback" attribute*/}
 			<React.Suspense >
